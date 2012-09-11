@@ -1,6 +1,6 @@
 from os import stat
 from zope.interface import implements
-from pyramid.interfaces import IRendererFactory, ITemplateRenderer
+from pyramid.interfaces import IRendererFactory
 from pyramid.path import AssetResolver, caller_package
 from breve import Template
 from breve.tags import html
@@ -13,6 +13,7 @@ def includeme(config):
 
 
 class BreveRendererFactory(object):
+    implements(IRendererFactory)
 
     def __init__(self, template, loader=None):
         self.loader = loader
