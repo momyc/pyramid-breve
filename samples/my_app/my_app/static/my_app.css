@@ -1,0 +1,11 @@
+#container {
+	width: 66%;
+	margin: 20pt auto;
+}
+
+#content {
+	text-align: center;
+	font-weight: bold;
+	font-size: 16pt;
+	line-height: 24pt;
+}
