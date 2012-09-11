@@ -39,7 +39,7 @@ class BreveAssetLoader(object):
             name = name[:-2]
 
         uid = self.resolver.resolve(name).abspath()
-        timestamp = stat(uid)
+        timestamp = stat(uid).st_mtime
         return uid, timestamp
 
     def load(self, uid):
