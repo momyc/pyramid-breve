@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 version = '0.1'
 
@@ -11,8 +11,6 @@ setup(name='pyramid_breve',
       author_email='a.kulakov@mail.ru',
       url='http://github.com/momyc/pyramid-breve',
       license='MIT',
-      packages=['pyramid_breve'],
-      test_suite='pyramid_breve.tests',
-      include_package_data=False,
-      zip_safe=True,
+      py_modules=['pyramid_breve'],
+      install_requires=['breve', 'pyramid'],
       )
