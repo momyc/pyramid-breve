@@ -7,7 +7,7 @@ Breve template engine renderer for Pyramid framework
 
 -----
 
-Call config.include('pyramid_breve') in your WSGI applicatication factory function as following:
+Call `config.include('pyramid_breve')` in your WSGI applicatication factory function as following:
 
 ```python
 def main(global_config, **settings):
