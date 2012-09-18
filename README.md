@@ -7,9 +7,9 @@ Breve template engine renderer for Pyramid framework
 
 -----
 
-Call config.include('pyramid_breve') in your WSGI applicatication factory function as following:
+Call `config.include('pyramid_breve')` in your WSGI applicatication factory function as following:
 
-```
+```python
 def main(global_config, **settings):
     """ This is just an example of how to register renderer for Breve templates.
     """
@@ -34,10 +34,10 @@ pyramid.includes =
 ```
 
 
-Please note that unlike breve.Template which searches for template files under `root` pyramid_breve renderer uses assets to locate
+Please note that unlike `breve.Template` which searches for template files under `root` `pyramid_breve` renderer uses `asset specification` to locate
 and load templates.
 
-```
+```python
 @view_config(route_name='home', renderer='templates/index.b')
 def hove_vew(request):
     return {}
