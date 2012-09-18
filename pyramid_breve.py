@@ -1,23 +1,24 @@
 from os import stat
 from zope.interface import implements
 from pyramid.interfaces import IRendererFactory
-from pyramid.path import AssetResolver, caller_package
+from pyramid.path import AssetResolver
 from breve import Template
 from breve.tags import html
 
 
 def includeme(config):
     template = Template(html.tags, xmlns=html.xmlns, doctype=html.doctype)
-    loader = BreveAssetLoader(caller_package(3))
+    # is there a better way to get application package?
+    loader = BreveAssetLoader(config.registry.__name__)
     config.add_renderer('.b', BreveRendererFactory(template, loader))
 
 
 class BreveRendererFactory(object):
     implements(IRendererFactory)
 
-    def __init__(self, template, loader=None):
-        self.loader = loader
+    def __init__(self, template, loader):
         self.template = template
+        self.loader = loader
 
     def __call__(self, info):
         name = info.name
@@ -44,4 +45,3 @@ class BreveAssetLoader(object):
 
     def load(self, uid):
         return file(uid, 'rb').read()
-
