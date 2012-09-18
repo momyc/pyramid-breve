@@ -34,7 +34,7 @@ pyramid.includes =
 ```
 
 
-Please note that unlike breve.Template which searches for template files under `root` pyramid_breve renderer uses assets to locate
+Please note that unlike `breve.Template` which searches for template files under `root` `pyramid_breve` renderer uses `asset specification` to locate
 and load templates.
 
 ```python
