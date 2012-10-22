@@ -1,10 +1,11 @@
+=============
 pyramid-breve
 =============
 
 Breve template engine renderer for Pyramid framework
 
 
-
+Usage
 -----
 
 Call `config.include('pyramid_breve')` in your WSGI applicatication factory function as following:
@@ -27,12 +28,37 @@ Another way is to add it to `pyramid.includes` in your INI-file:
 
 ```
 [app:main]
-use = egg:hello_world
-
 pyramid.includes =
 	pyramid_breve
 ```
 
+Configuration parameters
+------------------------
+
+`pyramid_breve.BreveRendererFactory` will pass the following configuration parameters to `breve.Template` constructor:
+
+*	_breve.tags_
+
+	This parameter will be resolved from dotted name string into Python object. By default,
+	it is `breve.tags.html.tags`
+*	_breve.doctype_
+
+	"<!DOCTYPE html>" or just "html". Default is content of `breve.tags.html.doctype`.
+*	_breve.xmlns_
+
+	Will be sent as-is to the constructor. Default is content of `breve.tags.html.xmlns`.
+
+
+To configure it via INI-file add parameters as following:
+
+```
+[app:main]
+breve.tags = my_package.breve.tags
+breve.doctype = html6
+```
+
+Notes
+-----
 
 Please note that unlike `breve.Template` which searches for template files under `root` `pyramid_breve` renderer uses `asset specification` to locate
 and load templates.
