@@ -39,15 +39,16 @@ Configuration parameters
 
 *	_breve.tags_
 
-	This parameter will be resolved from dotted name string into Python object. By default,
-	it is `breve.tags.html.tags`
+	This parameter will be resolved from dotted name string into Python object.
+	Default is `breve.tags.html.tags`.
 *	_breve.doctype_
 
-	"<!DOCTYPE html>" or just "html". Default is content of `breve.tags.html.doctype`.
+	"<!DOCTYPE html>" or just "html".
+	Default is content of `breve.tags.html.doctype`.
 *	_breve.xmlns_
 
-	Will be sent as-is to the constructor. Default is content of `breve.tags.html.xmlns`.
-
+	Will be sent as-is to the constructor.
+	Default is content of `breve.tags.html.xmlns`.
 
 To configure it via INI-file add parameters as following:
 
@@ -65,7 +66,7 @@ and load templates.
 
 ```python
 @view_config(route_name='home', renderer='templates/index.b')
-def hove_vew(request):
+def home_view(request):
     return {}
 
 
