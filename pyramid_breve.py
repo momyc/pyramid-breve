@@ -1,27 +1,42 @@
 from os import stat
+import re
 from zope.interface import implements
 from pyramid.interfaces import IRendererFactory
-from pyramid.path import AssetResolver
+from pyramid.path import AssetResolver, DottedNameResolver
 from breve import Template
 from breve.tags import html
 
 
 def includeme(config):
-    loader = BreveAssetLoader(config.registry.__name__)
-    config.add_renderer(u'.b', BreveRendererFactory(loader))
+    config.add_renderer(u'.b', BreveRendererFactory(config))
 
 
 class BreveRendererFactory(object):
     implements(IRendererFactory)
 
-    def __init__(self, loader):
-        self.loader = loader
+    tags = html.tags
+    doctype = html.doctype
+    xmlns = html.xmlns
+
+    def __init__(self, config):
+        registry = config.registry
+        self.loader = BreveAssetLoader(registry.__name__)
+
+        settings = dict((name[6:], value) for name, value in registry.settings.items() if name.startswith('breve.'))
+
+        self.tags = config.maybe_dotted(settings.get('tags', self.tags))
+
+        self.doctype = settings.get('doctype', self.doctype)
+        if self.doctype and not self.doctype.startswith('<!DOCTYPE '):
+            self.doctype = '<!DOCTYPE %s>' % self.doctype
+
+        self.xmlns = settings.get('xmlns', self.xmlns)
 
     def __call__(self, info):
         def render(value, system):
             value.update(system)
-            template = Template(html.tags, xmlns=html.xmlns, doctype=html.doctype)
-            return template.render(info.name, value, loader=self.loader)
+            template = Template(self.tags, xmlns=self.xmlns, doctype=self.doctype)
+            return template.render(info.name, vars=value, loader=self.loader)
         return render
 
 
