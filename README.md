@@ -35,7 +35,18 @@ pyramid.includes =
 Configuration parameters
 ------------------------
 
-`pyramid_breve.BreveRendererFactory` will pass the following configuration parameters to `breve.Template` constructor:
+There are few configuration parameters that control rendering. They can be set in INI-file as following:
+
+```
+[app:main]
+# other application parameters ...
+
+breve.tags = my_package.breve.tags
+breve.doctype = html
+breve.fragment = on
+```
+
+Breve renderer accepts following parameters:
 
 *	_breve.tags_
 
@@ -49,14 +60,23 @@ Configuration parameters
 
 	Will be sent as-is to the constructor.
 	Default is content of `breve.tags.html.xmlns`.
+*	_breve.fragment_
 
-To configure it via INI-file add parameters as following:
+	This boolean variable will be used as `fragment` parameter to breve.Template.render call. This parameter
+	can be also controlled by setting `breve_fragment` template variable as following:
 
+```python
+
+@view_config(renderer='templates/home.b')
+def home_view(request):
+    return {
+    	# other variables used in template
+	'breve_fragment': True,
+	}
 ```
-[app:main]
-breve.tags = my_package.breve.tags
-breve.doctype = html6
-```
+
+	Template variable `breve_fragment` overrides global `breve.fragment` setting. If none is set default is False.
+
 
 Notes
 -----
