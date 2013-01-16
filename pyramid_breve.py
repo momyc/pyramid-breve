@@ -1,9 +1,8 @@
 from os import stat
-import re
 from zope.interface import implements
 from pyramid.interfaces import IRendererFactory
 from pyramid.settings import asbool
-from pyramid.path import AssetResolver, DottedNameResolver
+from pyramid.path import AssetResolver
 from breve import Template
 from breve.tags import html
 
