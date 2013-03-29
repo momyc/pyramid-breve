@@ -70,9 +70,9 @@ Breve renderer accepts following parameters:
 @view_config(renderer='templates/home.b')
 def home_view(request):
     return {
-    	# other variables used in template
-	'breve_fragment': True,
-	}
+        # other variables used in template
+        'breve_fragment': True,
+        }
 ```
 
 	Template variable `breve_fragment` overrides global `breve.fragment` setting. If none is set default is False.
