@@ -63,7 +63,7 @@ Breve renderer accepts following parameters:
 *	_breve.fragment_
 
 	This boolean variable will be used as `fragment` parameter to breve.Template.render call. This parameter
-	can be also controlled by setting `breve_fragment` template variable as following:
+	can also be controlled by setting `breve_fragment` template variable as following:
 
 ```python
 
