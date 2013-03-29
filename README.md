@@ -74,8 +74,7 @@ def home_view(request):
         'breve_fragment': True,
         }
 ```
-
-	Template variable `breve_fragment` overrides global `breve.fragment` setting. If none is set default is False.
+Template variable `breve_fragment` overrides global `breve.fragment` setting. If none is set default is False.
 
 
 Notes
