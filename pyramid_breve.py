@@ -12,13 +12,12 @@ def includeme(config):
 
 
 class BreveRendererFactory(object):
+
     implements(IRendererFactory)
 
     def __init__(self, config):
-        registry = config.registry
-        self.loader = BreveAssetLoader(registry.__name__)
-
-        settings = dict((name[6:], value) for name, value in registry.settings.items() if name.startswith('breve.'))
+        settings = dict((name[6:], value) for name, value in
+                        config.registry.settings.items() if name.startswith('breve.'))
         self.tags = config.maybe_dotted(settings.get('tags', html.tags))
         self.doctype = settings.get('doctype', html.doctype)
         if self.doctype and not self.doctype.startswith('<!DOCTYPE '):
@@ -27,11 +26,14 @@ class BreveRendererFactory(object):
         self.fragment = asbool(settings.get('fragment', False))
 
     def __call__(self, info):
+        loader = BreveAssetLoader(info.package)
         def render(value, system):
             value.update(system)
             fragment = value.pop('breve_fragment', self.fragment)
-            template = Template(self.tags, xmlns=self.xmlns, doctype=self.doctype)
-            return template.render(info.name, vars=value, fragment=fragment, loader=self.loader)
+            template = Template(self.tags, xmlns=self.xmlns,
+                                doctype=self.doctype)
+            return template.render(info.name, vars=value, fragment=fragment,
+                                   loader=loader)
         return render
 
 
