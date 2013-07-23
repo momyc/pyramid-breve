@@ -63,19 +63,18 @@ Breve renderer accepts following parameters:
 *	_breve.fragment_
 
 	This boolean variable will be used as `fragment` parameter to breve.Template.render call. This parameter
-	can be also controlled by setting `breve_fragment` template variable as following:
+	can also be controlled by setting `breve_fragment` template variable as following:
 
 ```python
 
 @view_config(renderer='templates/home.b')
 def home_view(request):
     return {
-    	# other variables used in template
-	'breve_fragment': True,
-	}
+        # other variables used in template
+        'breve_fragment': True,
+        }
 ```
-
-	Template variable `breve_fragment` overrides global `breve.fragment` setting. If none is set default is False.
+Template variable `breve_fragment` overrides global `breve.fragment` setting. If none is set default is False.
 
 
 Notes
