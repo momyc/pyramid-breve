@@ -1,2 +1,0 @@
-include *.ini *.cfg
-recursive-include my_app *.b *.css
