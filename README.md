@@ -113,11 +113,6 @@ Please note that unlike `breve.Template` which searches for template files under
 `pyramid_breve` renderer uses `asset specification` to locate and load templates.
 
 ```python
-@view_config(route_name='home', renderer='templates/index.b')
-def home_view(request):
-    return {}
-
-
 @view_config(route_name='login', renderer='my.lovely.package:templates/login.b')
 def login_view(request):
     return {}
