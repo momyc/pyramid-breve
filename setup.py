@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.6.1dev'
+version = '0.6.2dev'
 
 setup(name='pyramid_breve',
       version=version,
