@@ -84,15 +84,15 @@ If none is set default is False.
 Template file modification monitoring
 -------------------------------------
 
-Starting from version 0.6dev there is `pyramid_breve.monitor.IFileMonitor' interface.
-Implementations of that interface can be used to help `pyramid_breve.renderer.TemplateLoader'
+Starting from version 0.6dev there is `pyramid_breve.monitor.IFileMonitor` interface.
+Implementations of that interface can be used to help `pyramid_breve.renderer.TemplateLoader`
 to get template file status without calling os.stat each time template is about to be rendered.
 
-There is `pyramid_breve.monitor.IntervalMonitor' implementation of that interface which is used
-by `BreveRendererFactory' by default. That class simply caches os.stat value for fixed amount
-of time. Its constructor accepts single parameter `interval' that should be interval in seconds
+There is `pyramid_breve.monitor.IntervalMonitor` implementation of that interface which is used
+by `BreveRendererFactory` by default. That class simply caches os.stat value for fixed amount
+of time. Its constructor accepts single parameter `interval` that should be interval in seconds
 between invalidating cached values. This parameter can be configure via INI-file variable
-`breve.poll_interval' like following:
+`breve.poll_interval` like following:
 
 ```
 [app:main]
