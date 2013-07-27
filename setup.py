@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.5.2'
+version = '0.6'
 
 setup(name='pyramid_breve',
       version=version,
@@ -13,5 +13,6 @@ setup(name='pyramid_breve',
       url='http://github.com/momyc/pyramid-breve',
       license='MIT',
       py_modules=['pyramid_breve'],
-      install_requires=['breve', 'pyramid>=1.3'],
+      test_suite='pyramid_breve.tests',
+      install_requires=['breve', 'pyramid>=1.3', 'zope.interface'],
       )

@@ -1,0 +1,1 @@
+recursive-exclude pyramid_breve/tests *
