@@ -106,6 +106,49 @@ breve.monitor_interval = 15
 It is possible to implement custom `IFileMonitor' using more advanced techiques,
 like `inotify' or 'File Alteration Monitor' features. 
 
+Lets create simple `IFileMonitor` implementation and configure `pyramid_breve` to
+use it.
+
+First, we need to implement `IFileMonitor` interface:
+
+```python
+from zope.interface import implements
+from pyramid_breve.monitor import IFileMonitor
+
+
+class SimpleMonitor(object):
+
+    implements(IFileMonitor)
+
+    def last_modified(self, name):
+        # never even look at real modification time
+	# templates will be loaded once and re-used forever
+        return 0
+```
+
+Now, we're ready to use our custom monitor:
+
+```python
+
+# create instance
+mymonitor = SimpleMonitor()
+
+
+def main(global_config, **settings):
+    config = Configurator(settings=settings)
+    ...
+```
+
+Use `breve.monitor` variable in INI-file:
+
+```
+[app:main]
+
+...
+
+breve.monitor = myapp.mymonitor
+```
+
 Notes
 -----
 
