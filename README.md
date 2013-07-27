@@ -8,7 +8,8 @@ Breve template engine renderer for Pyramid framework
 Usage
 -----
 
-Call `config.include('pyramid_breve')` in your WSGI applicatication factory function as following:
+Call `config.include('pyramid_breve')` in your WSGI applicatication factory
+function as following:
 
 ```python
 def main(global_config, **settings):
@@ -35,7 +36,8 @@ pyramid.includes =
 Configuration parameters
 ------------------------
 
-There are few configuration parameters that control rendering. They can be set in INI-file as following:
+There are few configuration parameters that control rendering. They can be set in
+INI-file as following:
 
 ```
 [app:main]
@@ -62,8 +64,9 @@ Breve renderer accepts following parameters:
 	Default is content of `breve.tags.html.xmlns`.
 *	_breve.fragment_
 
-	This boolean variable will be used as `fragment` parameter to breve.Template.render call. This parameter
-	can also be controlled by setting `breve_fragment` template variable as following:
+	This boolean variable will be used as `fragment` parameter to
+	breve.Template.render call. This parameter can also be controlled by setting
+	`breve_fragment` template variable as following:
 
 ```python
 
@@ -74,14 +77,40 @@ def home_view(request):
         'breve_fragment': True,
         }
 ```
-Template variable `breve_fragment` overrides global `breve.fragment` setting. If none is set default is False.
+Template variable `breve_fragment` overrides global `breve.fragment` setting.
+If none is set default is False.
 
+
+Template file modification monitoring
+-------------------------------------
+
+Starting from version 0.6dev there is `pyramid_breve.monitor.IFileMonitor' interface.
+Implementations of that interface can be used to help `pyramid_breve.renderer.TemplateLoader'
+to get template file status without calling os.stat each time template is about to be rendered.
+
+There is `pyramid_breve.monitor.IntervalMonitor' implementation of that interface which is used
+by `BreveRendererFactory' by default. That class simply caches os.stat value for fixed amount
+of time. Its constructor accepts single parameter `interval' that should be interval in seconds
+between invalidating cached values. This parameter can be configure via INI-file variable
+`breve.poll_interval' like following:
+
+```
+[app:main]
+
+...
+
+# set os.stat caching to 15 seconds
+breve.poll_interval = 15
+```
+
+It is possible to implement custom `IFileMonitor' using more advanced techiques,
+like `inotify' or 'File Alteration Monitor' features. 
 
 Notes
 -----
 
-Please note that unlike `breve.Template` which searches for template files under `root` `pyramid_breve` renderer uses `asset specification` to locate
-and load templates.
+Please note that unlike `breve.Template` which searches for template files under `root`
+`pyramid_breve` renderer uses `asset specification` to locate and load templates.
 
 ```python
 @view_config(route_name='home', renderer='templates/index.b')

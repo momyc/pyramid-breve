@@ -2,7 +2,6 @@ import unittest
 
 
 tags = {}
-monitor = object()
 
 
 class RendererTests(unittest.TestCase):
@@ -36,8 +35,14 @@ class RendererTests(unittest.TestCase):
             factory = BreveRendererFactory(config)
             assert getattr(factory, name) == attr_value
 
+    def test_monitor(self):
+        from pyramid.config import Configurator
+        from pyramid_breve.renderer import BreveRendererFactory
+        from pyramid_breve.monitor import IntervalMonitor
+
+        monitor = IntervalMonitor(1)
         config = Configurator(
-            settings={'breve.monitor': '.renderer_tests.monitor'})
+            settings={'breve.monitor': monitor})
         factory = BreveRendererFactory(config)
 
         assert factory.loader.monitor == monitor

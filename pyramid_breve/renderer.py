@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from os import stat
 
-from zope.interface import implements
+from zope.interface import implements, providedBy
 
 from pyramid.interfaces import IRendererFactory
 from pyramid.settings import asbool
@@ -31,6 +31,7 @@ class BreveRendererFactory(object):
 
         if 'monitor' in settings:
             monitor = config.maybe_dotted(settings['monitor'])
+            assert IFileMonitor in providedBy(monitor)
         else:
             interval = int(settings.get('monitor_interval', 5))
             monitor = IntervalMonitor(interval)
