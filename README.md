@@ -92,7 +92,7 @@ There is `pyramid_breve.monitor.IntervalMonitor` implementation of that interfac
 by `BreveRendererFactory` by default. That class simply caches os.stat value for fixed amount
 of time. Its constructor accepts single parameter `interval` that should be interval in seconds
 between invalidating cached values. This parameter can be configure via INI-file variable
-`breve.poll_interval` like following:
+`breve.monitor_interval` like following:
 
 ```
 [app:main]
@@ -100,7 +100,7 @@ between invalidating cached values. This parameter can be configure via INI-file
 ...
 
 # set os.stat caching to 15 seconds
-breve.poll_interval = 15
+breve.monitor_interval = 15
 ```
 
 It is possible to implement custom `IFileMonitor' using more advanced techiques,
