@@ -36,7 +36,14 @@ class BreveRendererFactory(object):
             interval = int(settings.get('monitor_interval', 5))
             monitor = IntervalMonitor(interval)
 
-        default_package = settings.get('default_package', caller_package(6))
+        default_package = settings.get('default_package')
+        if default_package is None:
+            # Configurator.include('pyramid_breve') has different
+            # "depth" than when it's configured via INI-file
+            default_package = caller_package(4)
+            if default_package.__name__ == 'pyramid.config':
+                default_package = caller_package(6)
+
         self.loader = TemplateLoader(default_package, monitor)
 
     def __call__(self, info):

@@ -38,15 +38,23 @@ class RendererTests(unittest.TestCase):
     def test_factory_default_package(self):
         from pyramid.config import Configurator
 
-        config = Configurator(settings={'breve.default_package': 'itertools'})
-        config.include('pyramid_breve')
-        config.commit()
+        relative_name = 'templates/test.b'
 
-        factory = config.registry.introspector.get('renderer factories',
-                                                   u'.b')['factory']
-        resolver = factory.loader.resolver
-        self.assertEqual(resolver.resolve('test/template.b').absspec(),
-                         'itertools:test/template.b')
+        for default_package in (None, 'itertools'):
+            settings = {}
+            if default_package is not None:
+                settings['breve.default_package'] = default_package
+            else:
+                default_package = 'pyramid_breve.tests'
+            config = Configurator(settings=settings)
+            config.include('pyramid_breve')
+            config.commit()
+
+            factory = config.registry.introspector.get('renderer factories',
+                                                       u'.b')['factory']
+            resolver = factory.loader.resolver
+            self.assertEqual(resolver.resolve(relative_name).absspec(),
+                             '{0}:{1}'.format(default_package, relative_name))
 
     def test_monitor(self):
         from pyramid.config import Configurator
