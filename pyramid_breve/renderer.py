@@ -6,7 +6,7 @@ from zope.interface import implements, providedBy
 
 from pyramid.interfaces import IRendererFactory
 from pyramid.settings import asbool
-from pyramid.path import AssetResolver
+from pyramid.path import AssetResolver, caller_package
 
 from breve import Template
 from breve.tags import html
@@ -36,7 +36,8 @@ class BreveRendererFactory(object):
             interval = int(settings.get('monitor_interval', 5))
             monitor = IntervalMonitor(interval)
 
-        self.loader = TemplateLoader(monitor)
+        default_package = settings.get('default_package', caller_package(6))
+        self.loader = TemplateLoader(default_package, monitor)
 
     def __call__(self, info):
 
@@ -53,8 +54,8 @@ class BreveRendererFactory(object):
 
 class TemplateLoader(object):
 
-    def __init__(self, monitor=None):
-        self.resolver = AssetResolver()
+    def __init__(self, default_package=None, monitor=None):
+        self.resolver = AssetResolver(default_package)
         self.monitor = monitor
 
     def stat(self, name, root):

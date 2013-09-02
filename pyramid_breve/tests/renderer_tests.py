@@ -35,6 +35,19 @@ class RendererTests(unittest.TestCase):
             factory = BreveRendererFactory(config)
             assert getattr(factory, name) == attr_value
 
+    def test_factory_default_package(self):
+        from pyramid.config import Configurator
+
+        config = Configurator(settings={'breve.default_package': 'itertools'})
+        config.include('pyramid_breve')
+        config.commit()
+
+        factory = config.registry.introspector.get('renderer factories',
+                                                   u'.b')['factory']
+        resolver = factory.loader.resolver
+        self.assertEqual(resolver.resolve('test/template.b').absspec(),
+                         'itertools:test/template.b')
+
     def test_monitor(self):
         from pyramid.config import Configurator
         from pyramid_breve.renderer import BreveRendererFactory
