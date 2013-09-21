@@ -43,6 +43,7 @@ INI-file as following:
 [app:main]
 # other application parameters ...
 
+breve.default_package = myapp
 breve.tags = my_package.breve.tags
 breve.doctype = html
 breve.fragment = on
@@ -50,6 +51,11 @@ breve.fragment = on
 
 Breve renderer accepts following parameters:
 
+*	_breve.default_package_
+
+	Package name to use for resolving `relative asset specifications`, i.e. assets without explicit package
+	name. Pyramid-breve tries to detect your application name and use it as default package name but it's
+	a tricky business and this parameter allowes to enforce default package name.
 *	_breve.tags_
 
 	This parameter will be resolved from dotted name string into Python object.
