@@ -5,7 +5,8 @@ pyramid-breve
 `Pyramid <http://www.pylonsproject.org/>`_ framework that uses 
 `asset specification <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/assets.html>`_
 to locate and load templates.
-Latest source code and bug tracker are avaliable at `GitHub <http://github.com/momyc/pyramid-breve>`_.
+Please use `GitHub repository <http://github.com/momyc/pyramid-breve>`_ to access latest sources, 
+report bugs and make feature requests
 
 
 Usage
