@@ -1,5 +1,12 @@
-`Breve template engine <http://breve.twisty-industries.com/>`_ renderer for
-`Pyramid framework <http://www.pylonsproject.org/>`_
+pyramid-breve
+=============
+
+`Breve <http://breve.twisty-industries.com/>`_ template engine renderer for
+`Pyramid <http://www.pylonsproject.org/>`_ framework that uses 
+`asset specification <http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/assets.html>`_
+to locate and load templates.
+Latest source code and bug tracker are avaliable at `GitHub <http://github.com/momyc/pyramid-breve>`_.
+
 
 Usage
 -----
@@ -27,6 +34,20 @@ Another way is to add it to ``pyramid.includes`` in your INI-file:
         pyramid.includes = pyramid_breve
 
 
+Now use it to render templates:
+
+.. code:: python
+
+        # using absolute asset specification
+        @view_config(route_name='home', renderer='my.lovely.app:templates/home.b')
+        def home_view(request):
+            return {real: 'content'}
+
+        # using relative asset specification
+        @view_config(route_name='login', renderer='templates/login.b')
+        def login_view(request):
+
+
 Configuration parameters
 ------------------------
 
@@ -36,10 +57,10 @@ INI-file as following:
 .. code:: ini
 
         [app:main]
-        breve.default_package = myapp
         breve.tags = my_package.breve.tags
         breve.doctype = html
-        breve.fragment = on
+        # optionally, enforce default package name if pyramid-breve fails to detect it
+        breve.default_package = myapp
 
 Breve renderer accepts following parameters:
 
@@ -117,8 +138,8 @@ First, we need to implement ``IFileMonitor`` interface:
             implements(IFileMonitor)
 
             def last_modified(self, name):
-                # never even look at real modification time
-                # templates will be loaded once and re-used forever
+                # Never even look at real modification time and
+                #  templates being cached forever once it's loaded
                 return 0
 
         monitor = DummyMonitor()
@@ -130,15 +151,3 @@ Use ``breve.monitor`` variable in INI-file:
         [app:main]
         breve.monitor = myapp.utils.monitor
 
-
-Notes
------
-
-Please note that unlike ``breve.Template`` which searches for template files under ``root``
-``pyramid_breve`` renderer uses ``asset specification`` to locate and load templates.
-
-.. code:: python
-
-        @view_config(route_name='login', renderer='my.lovely.package:templates/login.b')
-        def login_view(request):
-            return {}
