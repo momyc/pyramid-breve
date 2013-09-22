@@ -1,16 +1,15 @@
-Breve template engine renderer for Pyramid framework
+`Breve template engine <http://breve.twisty-industries.com/>`_ renderer for
+`Pyramid framework <http://www.pylonsproject.org/>`_
 
------
 Usage
 -----
 
-Call ``config.include('pyramid_breve')`` in your WSGI applicatication factory
-function as following:
+Call ``config.include('pyramid_breve')`` in your `WSGI <http://wsgi.org/>`_
+applicatication factory function as following:
 
 .. code:: python
-        def main(global_config, **settings):
-            """ This is just an example of how to register renderer for Breve templates.
-            """
+
+        def main(global_config, ````settings):
             config = Configurator(settings=settings)
 
             config.include('pyramid_breve')
@@ -23,11 +22,11 @@ function as following:
 Another way is to add it to ``pyramid.includes`` in your INI-file:
 
 .. code:: ini
+
         [app:main]
         pyramid.includes = pyramid_breve
 
 
-------------------------
 Configuration parameters
 ------------------------
 
@@ -35,40 +34,39 @@ There are few configuration parameters that control rendering. They can be set i
 INI-file as following:
 
 .. code:: ini
-        [app:main]
-        # other application parameters ...
 
+        [app:main]
         breve.default_package = myapp
         breve.tags = my_package.breve.tags
         breve.doctype = html
         breve.fragment = on
 
-
 Breve renderer accepts following parameters:
 
-breve.default_package
+``breve.default_package``
 	Package name to use for resolving ``relative asset specifications``, i.e. assets without explicit package
 	name. Pyramid-breve tries to detect your application name and use it as default package name but it's
 	a tricky business and this parameter allowes to enforce default package name.
  
-breve.tags
+``breve.tags``
 	This parameter will be resolved from dotted name string into Python object.
 	Default is ``breve.tags.html.tags``.
 
-breve.doctype
+``breve.doctype``
 	"<!DOCTYPE html>" or just "html".
 	Default is content of ``breve.tags.html.doctype``.
 
-breve.xmlns
+``breve.xmlns``
 	Will be sent as-is to the constructor.
 	Default is content of ``breve.tags.html.xmlns``.
 
-breve.fragment
+``breve.fragment``
 	This boolean variable will be used as ``fragment`` parameter to
 	breve.Template.render call. This parameter can also be controlled by setting
 	``breve_fragment`` template variable as following:
 
 .. code:: python
+
         @view_config(renderer='templates/home.b')
         def home_view(request):
             return {
@@ -80,8 +78,6 @@ Template variable ``breve_fragment`` overrides global ``breve.fragment`` setting
 If none is set default is False.
 
 
-
--------------------------------------
 Template file modification monitoring
 -------------------------------------
 
@@ -96,13 +92,13 @@ between invalidating cached values. This parameter can be configure via INI-file
 ``breve.monitor_interval`` like following:
 
 .. code:: ini
+
         [app:main]
         # cache os.stat calls for 15 seconds
         breve.monitor_interval = 15
 
-
 It is possible to implement custom ``IFileMonitor`` using more advanced techiques,
-like ``inotify' or 'File Alteration Monitor' features. 
+like ``inotify`` or ``File Alteration Monitor`` features. 
 
 Lets create simple ``IFileMonitor`` implementation and configure ``pyramid_breve`` to
 use it.
@@ -110,11 +106,13 @@ use it.
 First, we need to implement ``IFileMonitor`` interface:
 
 .. code:: python
+
+        # myapp/utils.py
+
         from zope.interface import implements
         from pyramid_breve.monitor import IFileMonitor
 
-
-        class SimpleMonitor(object):
+        class DummyMonitor(object):
 
             implements(IFileMonitor)
 
@@ -123,26 +121,16 @@ First, we need to implement ``IFileMonitor`` interface:
                 # templates will be loaded once and re-used forever
                 return 0
 
-
-Now, we're ready to use our custom monitor:
-
-.. code:: python
-        # create an instance
-        mymonitor = SimpleMonitor()
-
-        def main(global_config, **settings):
-            config = Configurator(settings=settings)
-            ...
-
+        monitor = DummyMonitor()
 
 Use ``breve.monitor`` variable in INI-file:
 
 .. code:: ini
+
         [app:main]
-        breve.monitor = myapp.mymonitor
+        breve.monitor = myapp.utils.monitor
 
 
------
 Notes
 -----
 
@@ -150,6 +138,7 @@ Please note that unlike ``breve.Template`` which searches for template files und
 ``pyramid_breve`` renderer uses ``asset specification`` to locate and load templates.
 
 .. code:: python
+
         @view_config(route_name='login', renderer='my.lovely.package:templates/login.b')
         def login_view(request):
             return {}
