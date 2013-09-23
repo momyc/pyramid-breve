@@ -140,7 +140,7 @@ First, we need to implement ``IFileMonitor`` interface:
 
             def last_modified(self, name):
                 # Never even look at real modification time and
-                #  templates being cached forever once it's loaded
+                # make it look like templates never change
                 return 0
 
         monitor = DummyMonitor()
