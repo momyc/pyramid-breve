@@ -17,7 +17,7 @@ applicatication factory function as following:
 
 .. code:: python
 
-        def main(global_config, ````settings):
+        def main(global_config, **settings):
             config = Configurator(settings=settings)
 
             config.include('pyramid_breve')
