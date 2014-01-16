@@ -15,12 +15,14 @@ Installation
 If you prefer pip:
 
 .. code:: bash
+
         $ pip install pyramid-breve
 
 
 Otherwise:
 
 .. code:: bash
+
         $ easy_install pyramid-breve
 
 
