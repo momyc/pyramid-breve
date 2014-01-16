@@ -14,14 +14,14 @@ Installation
 
 If you prefer pip:
 
-.. code:: sh
-        pip install pyramid-breve
+.. code:: bash
+        $ pip install pyramid-breve
 
 
 Otherwise:
 
-.. code:: sh
-        easy_install pyramid-breve
+.. code:: bash
+        $ easy_install pyramid-breve
 
 
 Usage
