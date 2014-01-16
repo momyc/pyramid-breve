@@ -9,6 +9,21 @@ Please use `GitHub repository <http://github.com/momyc/pyramid-breve>`_ to acces
 report bugs and make feature requests
 
 
+Installation
+------------
+
+If you prefer pip:
+
+.. code:: sh
+        pip install pyramid-breve
+
+
+Otherwise:
+
+.. code:: sh
+        easy_install pyramid-breve
+
+
 Usage
 -----
 
