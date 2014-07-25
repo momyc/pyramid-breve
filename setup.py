@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.6.4dev'
+version = '0.7.0'
 
 setup(name='pyramid_breve',
       version=version,
@@ -9,7 +9,7 @@ setup(name='pyramid_breve',
       Breve templates as Pyramid view renderers""",
       keywords='pyramid breve',
       author='Alexander Kulakov',
-      author_email='homo.programmerus@gmail.com',
+      author_email='a.kulakov@mail.ru',
       url='http://github.com/momyc/pyramid-breve',
       license='MIT',
       packages=['pyramid_breve'],
