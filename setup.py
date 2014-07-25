@@ -1,12 +1,17 @@
+import os
 from setuptools import setup, find_packages
 
 version = '0.7.0'
 
-setup(name='pyramid_breve',
+
+def load(filename):
+    return open(os.path.join(os.path.dirname(__file__), filename)).read()
+
+
+setup(name='pyramid-breve',
       version=version,
-      description="Breve template engine renderer for Pyramid",
-      long_description="""Just call config.include('pyramid_breve') and use
-      Breve templates as Pyramid view renderers""",
+      description="Breve template engine renderer for Pyramid Web Framework",
+      long_description=load('README.rst'),
       keywords='pyramid breve',
       author='Alexander Kulakov',
       author_email='a.kulakov@mail.ru',
